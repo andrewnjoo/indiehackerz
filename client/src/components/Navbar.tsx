@@ -1,28 +1,25 @@
-"use client";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { getCurrentUser } from "@/app/lib/session";
+import { SignOut } from "./auth/SignOut";
 
-function BasicExample() {
+async function BasicExample() {
+  const user = await getCurrentUser();
   return (
-    <Navbar expand="lg" className="bg-primary text-white">
-      <Container>
-        <Navbar.Brand href="/" className="text-white">
-          Indie Hackerz
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto text-white">
-            <Nav.Link href="/" className="text-white">
-              Home
-            </Nav.Link>
-            <Nav.Link href="/explore" className="text-white">
-              Explore
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div className="navbar bg-base-100">
+      <div className="flex-1">
+        <a className="btn btn-ghost normal-case text-xl" href="/">
+          daisyUI
+        </a>
+        <a href="/protected">Protected</a>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            {!user ? <a href="/api/auth/signin">Sign in</a> : <SignOut /> }
+
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }
 
